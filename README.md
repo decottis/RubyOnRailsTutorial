@@ -13,8 +13,9 @@ Lancer le script d'installation :
 chmod +x install_ruby.sh
 ./install_ruby.sh
 ```
-Ouvrir un nouveau terminal, puis lancer la commande : 
+Lancer la commande : 
 ```
+. ~/.bashrc
 gem install nokogiri -- --use-system-libraries
 gem install rails
 ```
