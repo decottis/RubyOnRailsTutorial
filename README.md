@@ -41,11 +41,10 @@ Vous pouvez générer un controller avec rails :
 bin/rails generate controller [NOM-DU-CONTROLLER] Action1 Action2 ActionN
 ```
 Générer un controller HelloWorld avec comme une action "index"
-Cette commande va créér le controleur HelloWorld ainsi que la vue associée. De plus il va ajouter la route entre le controleur et la vue dans le fichier config/routes.rb.<br/>
-RoR va effectué automatiquement le mapping grâce au nom des différents fichiers.<br/>
-<br/>
+Cette commande va créér le controleur HelloWorld ainsi que la vue associée. De plus il va ajouter la route entre le controleur et la vue dans le fichier config/routes.rb.
+RoR va effectué automatiquement le mapping grâce au nom des différents fichiers.
 Vous pouvez modifier le fichier app/views/hello_world/index.html.erb pour y mettre votre HelloWorld.
-<br/>Votre HelloWorld est disponible sous http://localhost:3000/hello_world/index.
+Votre HelloWorld est disponible sous http://localhost:3000/hello_world/index.
 
 ## 3. Mise en bouche : CRUD de tablette de chocolat
 Créer un nouveau projet chocolatManager ou vous souhaitez.
@@ -55,7 +54,7 @@ Dans le fichier config/routes.rb, ajouter avant le end :
 resources:chocolat
 ```
 Lancer la commande bin/rails routes
-Cette commande liste toutes les routes que vous avez déclaré dans votre fichier routes.<br/> Vous comprenez bien que votre resources:chocolat à créér automatiquement toutes les routes dont on a besoin pour du CRUD :).
+Cette commande liste toutes les routes que vous avez déclaré dans votre fichier routes. Vous comprenez bien que votre resources:chocolat à créér automatiquement toutes les routes dont on a besoin pour du CRUD :).
 
 ### Créer un service de création de tablette de chocolat
 Afin de créer des tablettes de chocolat, il faut créer l'entité chocolat en base et en tant que modèle Ruby, le système de génération nous permet ça :
@@ -106,7 +105,8 @@ Dans le controleur chocolat, ajouter à la méthode create :
   redirect_to @chocolat
   ```
   
- Tester !
+Tester !
+### Affichage du chocolaaaaat !
  Oops, il vous manque une page show/1 a priori... RoR redirige par défaut sur cette page à la création d'une ressource. Cette page doit donc afficher les détails de la création. Il faut d'abord afficher capturé l'id dans l'url via le controleur en ajoutant le find dans la méthode show : 
  ```
      @chocolat = Chocolat.find(params[:id])
@@ -151,5 +151,45 @@ Pour la vue, voici les instructions utiles :
 <%= link_to 'Afficher', chocolat_path(chocolat) %>
 ```
 
-Objectif : faire une liste de tous les chocolats avec un lien vers la description.
-
+Objectif : faire une liste de tous les chocolats avec un lien vers la description.<br/>
+Maintenant, vous pouvez ajouter des liens entre toutes vos pages avec l'instruction link. 
+```
+<%= link_to 'Chocolat', PREFIXE_DE_ROUTE %>
+```
+Ruby attend le PREFIX de route de la page + "_path" que vous pouvez obtenir avec la commande 
+```
+bin/rails routes
+```
+Objectif : Mettre un lien entre toutes la liste, la création et le détail afin de naviguer
+### Mise à jour du chocolat
+Maintenant que RoR n'a plus de secret pour vous, on vous donne uniquement la syntaxe du formulaire d'édition :
+``` 
+<%= form_for :chocolat, url: chocolat_path(@chocolat), method: :patch do |f| %>
+  <p>
+    <%= f.label :nom %><br>
+    <%= f.text_field :nom %>
+  </p>
+  <p>
+    <%= f.label :paysOrigine%><br>
+    <%= f.text_field :paysOrigine %>
+  </p>
+  <p>
+    <%= f.label :nombreDeCarre%><br>
+    <%= f.text_field :nombreDeCarre %>
+  </p>
+  <p>
+    <%= f.label :description%><br>
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+```
+Pour le backend, on vous laisse gérer, vous avez tous les élements !
+### Supprimer une tablette
+Ici, on vous donne uniquement le lien vers la suppression pour la vue : 
+```
+<%= link_to 'Supprimer', chocolat_path(chocolat),
+              method: :delete,
+              data: { confirm: 'Vous êtes sur ?' } %>
+```
