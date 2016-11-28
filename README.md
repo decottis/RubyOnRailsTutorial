@@ -30,7 +30,7 @@ rails new helloWorld
 ```
 Vous pouvez lancer votre serveur d'application RoR par la commande suivante :
 ```
-bin/rails server
+rails server
 ```
 NB : On vous conseille de lancer le serveur dans un autre terminal car les modifications sont prises à la volée.
 Le serveur d'application RoR est disponible sous http://localhost:3000 (Allez y jeter un oeil !).
